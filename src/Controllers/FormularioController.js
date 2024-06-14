@@ -35,36 +35,35 @@ export const getFormulario = async (req, res) => {
 
 export const saveFormulario = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
-
-        const formulario = await FormularioModel.findByIdAndUpdate(id, {
-            nombreCompleto,
-            direccion,
-            numeroTelefono,
-            correoElectronico,
-            edad,
-            estadoCivil,
-            tipoVivienda,
-            propietarioInquilino,
-            tamanoVivienda,
-            patioJardinSeguro,
-            numeroPersonas,
-            edadesPersonas,
-            otrosAnimales,
-            alergiasMascotas,
-            haTenidoMascotas,
-            detallesMascotasAnteriores,
-            cuidadoEntrenamiento,
-            razonesAdopcion,
-            expectativasMascota
-        });
-
-        if (!formulario) {
-            return res.status(404).json({ status: false, errors: "Formulario no encontrado" });
+        const { titulo, descripcion } = req.body;
+        const validacion = validar(titulo, descripcion, req.file, 'Y');
+        if (validacion.length === 0) {
+            const nuevoFormulario = new FormularioModel({
+                nombreCompleto: req.body.nombreCompleto,
+                direccion: req.body.direccion,
+                numeroTelefono: req.body.numeroTelefono,
+                correoElectronico: req.body.correoElectronico,
+                edad: req.body.edad,
+                estadoCivil: req.body.estadoCivil,
+                tipoVivienda: req.body.tipoVivienda,
+                propietarioInquilino: req.body.propietarioInquilino,
+                tamanoVivienda: req.body.tamanoVivienda,
+                patioJardinSeguro: req.body.patioJardinSeguro,
+                numeroPersonas: req.body.numeroPersonas,
+                edadesPersonas: req.body.edadesPersonas,
+                otrosAnimales: req.body.otrosAnimales,
+                alergiasMascotas: req.body.alergiasMascotas,
+                haTenidoMascotas: req.body.haTenidoMascotas,
+                detallesMascotasAnteriores: req.body.detallesMascotasAnteriores,
+                cuidadoEntrenamiento: req.body.cuidadoEntrenamiento,
+                razonesAdopcion: req.body.razonesAdopcion,
+                expectativasMascota: req.body.expectativasMascota
+            });
+            await nuevoFormulario.save();
+            return res.status(200).json({ status: true, message: 'Formulario guardado exitosamente' });
+        } else {
+            return res.status(400).json({ status: false, errors: validacion });
         }
-
-        return res.status(200).json({ status: true, message: 'Datos actualizados exitosamente' });
     } catch (error) {
         return res.status(500).json({ status: false, errors: [error.message] });
     }
