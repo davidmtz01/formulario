@@ -35,38 +35,49 @@ export const getFormulario = async (req, res) => {
 
 export const saveFormulario = async (req, res) => {
     try {
+        // Verificar si req.body está definido y contiene el campo nombreCompleto
+        if (!req.body || !req.body.nombreCompleto) {
+            return res.status(400).json({ status: false, errors: ['El campo nombreCompleto es requerido'] });
+        }
+
+        // Extraer los campos del cuerpo de la solicitud
         const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+
+        // Validar los datos recibidos
         const validacion = validar(nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota, req.file, 'Y');
 
+        // Si la validación pasa, guardar el formulario en la base de datos
         if (validacion.length === 0) {
             const nuevoFormulario = new FormularioModel({
-                nombreCompleto: nombreCompleto,
-                direccion: direccion,
-                numeroTelefono: numeroTelefono,
-                correoElectronico: correoElectronico,
-                edad: edad,
-                estadoCivil: estadoCivil,
-                tipoVivienda: tipoVivienda,
-                propietarioInquilino: propietarioInquilino,
-                tamanoVivienda: tamanoVivienda,
-                patioJardinSeguro: patioJardinSeguro,
-                numeroPersonas: numeroPersonas,
-                edadesPersonas: edadesPersonas,
-                otrosAnimales: otrosAnimales,
-                alergiasMascotas: alergiasMascotas,
-                haTenidoMascotas: haTenidoMascotas,
-                detallesMascotasAnteriores: detallesMascotasAnteriores,
-                cuidadoEntrenamiento: cuidadoEntrenamiento,
-                razonesAdopcion: razonesAdopcion,
-                expectativasMascota: expectativasMascota
+                nombreCompleto,
+                direccion,
+                numeroTelefono,
+                correoElectronico,
+                edad,
+                estadoCivil,
+                tipoVivienda,
+                propietarioInquilino,
+                tamanoVivienda,
+                patioJardinSeguro,
+                numeroPersonas,
+                edadesPersonas,
+                otrosAnimales,
+                alergiasMascotas,
+                haTenidoMascotas,
+                detallesMascotasAnteriores,
+                cuidadoEntrenamiento,
+                razonesAdopcion,
+                expectativasMascota
             });
 
             await nuevoFormulario.save();
             return res.status(200).json({ status: true, message: 'Formulario guardado exitosamente' });
         } else {
+            // Si la validación falla, devolver errores de validación al cliente
             return res.status(400).json({ status: false, errors: validacion });
         }
     } catch (error) {
+        // Manejar errores internos del servidor
         return res.status(500).json({ status: false, errors: [error.message] });
     }
 };
