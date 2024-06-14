@@ -40,6 +40,7 @@ export const getFormulario = async (req, res) => {
 export const saveFormulario = async (req, res) => {
     try {
         // Imprime el cuerpo de la solicitud para verificar los datos recibidos
+        console.log('Headers:', req.headers);
         console.log('Body:', req.body);
 
         // Extrae los campos del formulario de req.body
@@ -64,6 +65,29 @@ export const saveFormulario = async (req, res) => {
             razonesAdopcion, 
             expectativasMascota 
         } = req.body;
+
+        // Verifica si todos los campos se recibieron correctamente
+        console.log({
+            nombreCompleto, 
+            direccion, 
+            numeroTelefono, 
+            correoElectronico, 
+            edad, 
+            estadoCivil, 
+            tipoVivienda, 
+            propietarioInquilino, 
+            tamanoVivienda, 
+            patioJardinSeguro, 
+            numeroPersonas, 
+            edadesPersonas, 
+            otrosAnimales, 
+            alergiasMascotas, 
+            haTenidoMascotas, 
+            detallesMascotasAnteriores, 
+            cuidadoEntrenamiento, 
+            razonesAdopcion, 
+            expectativasMascota 
+        });
 
         // Crea un nuevo objeto con los datos del formulario
         const nuevoFormulario = new FormularioModel({
@@ -101,6 +125,7 @@ export const saveFormulario = async (req, res) => {
         return res.status(500).json({ status: false, errors: [error.message] });
     }
 };
+
 
 export const updateFormulario = async (req, res) => {
     try {
