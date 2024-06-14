@@ -42,31 +42,31 @@ export const saveFormulario = async (req, res) => {
         // Imprime el cuerpo de la solicitud para verificar los datos recibidos
         console.log('Body:', req.body);
 
-        // Extrae los campos del formulario de req.body
-        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+        // Extrae todos los campos del formulario de req.body
+        const formData = {
+            nombreCompleto: req.body.nombreCompleto,
+            direccion: req.body.direccion,
+            numeroTelefono: req.body.numeroTelefono,
+            correoElectronico: req.body.correoElectronico,
+            edad: req.body.edad,
+            estadoCivil: req.body.estadoCivil,
+            tipoVivienda: req.body.tipoVivienda,
+            propietarioInquilino: req.body.propietarioInquilino,
+            tamanoVivienda: req.body.tamanoVivienda,
+            patioJardinSeguro: req.body.patioJardinSeguro,
+            numeroPersonas: req.body.numeroPersonas,
+            edadesPersonas: req.body.edadesPersonas,
+            otrosAnimales: req.body.otrosAnimales,
+            alergiasMascotas: req.body.alergiasMascotas,
+            haTenidoMascotas: req.body.haTenidoMascotas,
+            detallesMascotasAnteriores: req.body.detallesMascotasAnteriores,
+            cuidadoEntrenamiento: req.body.cuidadoEntrenamiento,
+            razonesAdopcion: req.body.razonesAdopcion,
+            expectativasMascota: req.body.expectativasMascota
+        };
 
         // Crea un nuevo objeto con los datos del formulario
-        const nuevoFormulario = new FormularioModel({
-            nombreCompleto,
-            direccion,
-            numeroTelefono,
-            correoElectronico,
-            edad,
-            estadoCivil,
-            tipoVivienda,
-            propietarioInquilino,
-            tamanoVivienda,
-            patioJardinSeguro,
-            numeroPersonas,
-            edadesPersonas,
-            otrosAnimales,
-            alergiasMascotas,
-            haTenidoMascotas,
-            detallesMascotasAnteriores,
-            cuidadoEntrenamiento,
-            razonesAdopcion,
-            expectativasMascota
-        });
+        const nuevoFormulario = new FormularioModel(formData);
 
         // Imprime el nuevo objeto para verificar los datos antes de guardarlos
         console.log('Nuevo formulario:', nuevoFormulario);
