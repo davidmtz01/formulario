@@ -4,6 +4,7 @@ const formularioSchema = new mongoose.Schema({
     nombreCompleto: String,
     direccion: String,
     numeroTelefono: String,
+    correoElectronico: String,
     edad: Number,
     estadoCivil: String,
     tipoVivienda: String,
@@ -34,10 +35,36 @@ export const getFormulario = async (req, res) => {
 
 export const saveFormulario = async (req, res) => {
     try {
-        const formData = req.body;
-        const nuevoFormulario = new FormularioModel(formData);
-        await nuevoFormulario.save();
-        return res.status(200).json({ status: true, message: 'Datos guardados exitosamente' });
+        const { id } = req.params;
+        const { nombreCompleto, direccion, numeroTelefono, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+
+        const formulario = await FormularioModel.findByIdAndUpdate(id, {
+            nombreCompleto,
+            direccion,
+            numeroTelefono,
+            correoElectronico,
+            edad,
+            estadoCivil,
+            tipoVivienda,
+            propietarioInquilino,
+            tamanoVivienda,
+            patioJardinSeguro,
+            numeroPersonas,
+            edadesPersonas,
+            otrosAnimales,
+            alergiasMascotas,
+            haTenidoMascotas,
+            detallesMascotasAnteriores,
+            cuidadoEntrenamiento,
+            razonesAdopcion,
+            expectativasMascota
+        });
+
+        if (!formulario) {
+            return res.status(404).json({ status: false, errors: "Formulario no encontrado" });
+        }
+
+        return res.status(200).json({ status: true, message: 'Datos actualizados exitosamente' });
     } catch (error) {
         return res.status(500).json({ status: false, errors: [error.message] });
     }
@@ -52,6 +79,7 @@ export const updateFormulario = async (req, res) => {
             nombreCompleto,
             direccion,
             numeroTelefono,
+            correoElectronico,
             edad,
             estadoCivil,
             tipoVivienda,
