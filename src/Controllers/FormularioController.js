@@ -39,25 +39,25 @@ export const saveFormulario = async (req, res) => {
         const validacion = validar(titulo, descripcion, req.file, 'Y');
         if (validacion.length === 0) {
             const nuevoFormulario = new FormularioModel({
-                nombreCompleto: req.body.nombreCompleto,
-                direccion: req.body.direccion,
-                numeroTelefono: req.body.numeroTelefono,
-                correoElectronico: req.body.correoElectronico,
-                edad: req.body.edad,
-                estadoCivil: req.body.estadoCivil,
-                tipoVivienda: req.body.tipoVivienda,
-                propietarioInquilino: req.body.propietarioInquilino,
-                tamanoVivienda: req.body.tamanoVivienda,
-                patioJardinSeguro: req.body.patioJardinSeguro,
-                numeroPersonas: req.body.numeroPersonas,
-                edadesPersonas: req.body.edadesPersonas,
-                otrosAnimales: req.body.otrosAnimales,
-                alergiasMascotas: req.body.alergiasMascotas,
-                haTenidoMascotas: req.body.haTenidoMascotas,
-                detallesMascotasAnteriores: req.body.detallesMascotasAnteriores,
-                cuidadoEntrenamiento: req.body.cuidadoEntrenamiento,
-                razonesAdopcion: req.body.razonesAdopcion,
-                expectativasMascota: req.body.expectativasMascota
+                nombreCompleto: nombreCompleto,
+                direccion: direccion,
+                numeroTelefono: numeroTelefono,
+                correoElectronico: correoElectronico,
+                edad: edad,
+                estadoCivil: estadoCivil,
+                tipoVivienda: tipoVivienda,
+                propietarioInquilino: propietarioInquilino,
+                tamanoVivienda: tamanoVivienda,
+                patioJardinSeguro: patioJardinSeguro,
+                numeroPersonas: numeroPersonas,
+                edadesPersonas: edadesPersonas,
+                otrosAnimales: otrosAnimales,
+                alergiasMascotas: alergiasMascotas,
+                haTenidoMascotas: haTenidoMascotas,
+                detallesMascotasAnteriores: detallesMascotasAnteriores,
+                cuidadoEntrenamiento: cuidadoEntrenamiento,
+                razonesAdopcion: razonesAdopcion,
+                expectativasMascota: expectativasMascota
             });
             await nuevoFormulario.save();
             return res.status(200).json({ status: true, message: 'Formulario guardado exitosamente' });
