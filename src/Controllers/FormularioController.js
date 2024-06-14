@@ -37,46 +37,45 @@ export const getFormulario = async (req, res) => {
     }
 };
 
+// Endpoint para guardar el formulario
 export const saveFormulario = async (req, res) => {
     try {
-        // Extrae los campos del formulario de req.body
-        const { body } = req;
+        // Verificar si multer se utilizó para manejar form-data
+        const body = req.body && typeof req.body === 'object' ? req.body : req.body;
 
-        // Crea un nuevo objeto con los datos del formulario
+        // Crear un nuevo objeto con los datos del formulario
         const nuevoFormulario = new FormularioModel({
-            nombreCompleto: body.get('nombreCompleto'),
-            direccion: body.get('direccion'),
-            numeroTelefono: body.get('numeroTelefono'),
-            correoElectronico: body.get('correoElectronico'),
-            edad: body.get('edad'),
-            estadoCivil: body.get('estadoCivil'),
-            tipoVivienda: body.get('tipoVivienda'),
-            propietarioInquilino: body.get('propietarioInquilino'),
-            tamanoVivienda: body.get('tamanoVivienda'),
-            patioJardinSeguro: body.get('patioJardinSeguro'),
-            numeroPersonas: body.get('numeroPersonas'),
-            edadesPersonas: body.get('edadesPersonas'),
-            otrosAnimales: body.get('otrosAnimales'),
-            alergiasMascotas: body.get('alergiasMascotas'),
-            haTenidoMascotas: body.get('haTenidoMascotas'),
-            detallesMascotasAnteriores: body.get('detallesMascotasAnteriores'),
-            cuidadoEntrenamiento: body.get('cuidadoEntrenamiento'),
-            razonesAdopcion: body.get('razonesAdopcion'),
-            expectativasMascota: body.get('expectativasMascota')
+            nombreCompleto: body.nombreCompleto,
+            direccion: body.direccion,
+            numeroTelefono: body.numeroTelefono,
+            correoElectronico: body.correoElectronico,
+            edad: body.edad,
+            estadoCivil: body.estadoCivil,
+            tipoVivienda: body.tipoVivienda,
+            propietarioInquilino: body.propietarioInquilino,
+            tamanoVivienda: body.tamanoVivienda,
+            patioJardinSeguro: body.patioJardinSeguro,
+            numeroPersonas: body.numeroPersonas,
+            edadesPersonas: body.edadesPersonas,
+            otrosAnimales: body.otrosAnimales,
+            alergiasMascotas: body.alergiasMascotas,
+            haTenidoMascotas: body.haTenidoMascotas,
+            detallesMascotasAnteriores: body.detallesMascotasAnteriores,
+            cuidadoEntrenamiento: body.cuidadoEntrenamiento,
+            razonesAdopcion: body.razonesAdopcion,
+            expectativasMascota: body.expectativasMascota
         });
 
-        // Guarda el formulario en la base de datos
+        // Guardar el formulario en la base de datos
         await nuevoFormulario.save();
         
-        // Responde con un mensaje de éxito
+        // Responder con un mensaje de éxito
         return res.status(200).json({ status: true, message: 'Datos guardados exitosamente' });
     } catch (error) {
-        // Maneja cualquier error y responde con un mensaje de error
+        // Manejar cualquier error y responder con un mensaje de error
         return res.status(500).json({ status: false, errors: [error.message] });
     }
 };
-
-
 
 export const updateFormulario = async (req, res) => {
     try {
