@@ -43,7 +43,27 @@ export const saveFormulario = async (req, res) => {
         console.log('Body:', req.body);
 
         // Extrae los campos del formulario de req.body
-        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+        const { 
+            nombreCompleto, 
+            direccion, 
+            numeroTelefono, 
+            correoElectronico, 
+            edad, 
+            estadoCivil, 
+            tipoVivienda, 
+            propietarioInquilino, 
+            tamanoVivienda, 
+            patioJardinSeguro, 
+            numeroPersonas, 
+            edadesPersonas, 
+            otrosAnimales, 
+            alergiasMascotas, 
+            haTenidoMascotas, 
+            detallesMascotasAnteriores, 
+            cuidadoEntrenamiento, 
+            razonesAdopcion, 
+            expectativasMascota 
+        } = req.body;
 
         // Crea un nuevo objeto con los datos del formulario
         const nuevoFormulario = new FormularioModel({
