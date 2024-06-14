@@ -37,42 +37,47 @@ export const getFormulario = async (req, res) => {
     }
 };
 
-// Endpoint para guardar el formulario
 export const saveFormulario = async (req, res) => {
     try {
-        // Verificar si multer se utilizó para manejar form-data
-        const body = req.body && typeof req.body === 'object' ? req.body : req.body;
+        // Imprime el cuerpo de la solicitud para verificar los datos recibidos
+        console.log('Body:', req.body);
 
-        // Crear un nuevo objeto con los datos del formulario
+        // Extrae los campos del formulario de req.body
+        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+
+        // Crea un nuevo objeto con los datos del formulario
         const nuevoFormulario = new FormularioModel({
-            nombreCompleto: body.nombreCompleto,
-            direccion: body.direccion,
-            numeroTelefono: body.numeroTelefono,
-            correoElectronico: body.correoElectronico,
-            edad: body.edad,
-            estadoCivil: body.estadoCivil,
-            tipoVivienda: body.tipoVivienda,
-            propietarioInquilino: body.propietarioInquilino,
-            tamanoVivienda: body.tamanoVivienda,
-            patioJardinSeguro: body.patioJardinSeguro,
-            numeroPersonas: body.numeroPersonas,
-            edadesPersonas: body.edadesPersonas,
-            otrosAnimales: body.otrosAnimales,
-            alergiasMascotas: body.alergiasMascotas,
-            haTenidoMascotas: body.haTenidoMascotas,
-            detallesMascotasAnteriores: body.detallesMascotasAnteriores,
-            cuidadoEntrenamiento: body.cuidadoEntrenamiento,
-            razonesAdopcion: body.razonesAdopcion,
-            expectativasMascota: body.expectativasMascota
+            nombreCompleto,
+            direccion,
+            numeroTelefono,
+            correoElectronico,
+            edad,
+            estadoCivil,
+            tipoVivienda,
+            propietarioInquilino,
+            tamanoVivienda,
+            patioJardinSeguro,
+            numeroPersonas,
+            edadesPersonas,
+            otrosAnimales,
+            alergiasMascotas,
+            haTenidoMascotas,
+            detallesMascotasAnteriores,
+            cuidadoEntrenamiento,
+            razonesAdopcion,
+            expectativasMascota
         });
 
-        // Guardar el formulario en la base de datos
+        // Imprime el nuevo objeto para verificar los datos antes de guardarlos
+        console.log('Nuevo formulario:', nuevoFormulario);
+
+        // Guarda el formulario en la base de datos
         await nuevoFormulario.save();
-        
-        // Responder con un mensaje de éxito
+
+        // Responde con un mensaje de éxito
         return res.status(200).json({ status: true, message: 'Datos guardados exitosamente' });
     } catch (error) {
-        // Manejar cualquier error y responder con un mensaje de error
+        // Maneja cualquier error y responde con un mensaje de error
         return res.status(500).json({ status: false, errors: [error.message] });
     }
 };
