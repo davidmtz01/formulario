@@ -1,4 +1,8 @@
 import mongoose from 'mongoose';
+import multer from 'multer';
+
+// Configura multer para manejar form-data
+const upload = multer();
 
 const formularioSchema = new mongoose.Schema({
     nombreCompleto: String,
