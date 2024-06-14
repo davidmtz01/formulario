@@ -184,9 +184,91 @@ export const deleteFormulario = async (req, res) => {
 
 const validar = (formData) => {
     const errors = [];
+
     if (!formData.nombreCompleto) {
         errors.push('El nombre completo es requerido');
     }
-    // Validar otros campos según sea necesario
+
+    if (!formData.direccion) {
+        errors.push('La dirección es requerida');
+    }
+
+    if (!formData.numeroTelefono) {
+        errors.push('El número de teléfono es requerido');
+    } else if (!/^\d{10}$/.test(formData.numeroTelefono)) {
+        errors.push('El número de teléfono debe tener 10 dígitos numéricos');
+    }
+
+    if (!formData.correoElectronico) {
+        errors.push('El correo electrónico es requerido');
+    } else if (!/\S+@\S+\.\S+/.test(formData.correoElectronico)) {
+        errors.push('Ingrese un correo electrónico válido');
+    }
+
+    if (!formData.edad) {
+        errors.push('La edad es requerida');
+    } else if (formData.edad < 18 || formData.edad > 100) {
+        errors.push('La edad debe estar entre 18 y 100 años');
+    }
+
+    if (!formData.estadoCivil) {
+        errors.push('El estado civil es requerido');
+    }
+
+    if (!formData.tipoVivienda) {
+        errors.push('El tipo de vivienda es requerido');
+    }
+
+    if (!formData.propietarioInquilino) {
+        errors.push('Debe especificar si es propietario o inquilino');
+    }
+
+    if (!formData.tamanoVivienda) {
+        errors.push('El tamaño de la vivienda es requerido');
+    }
+
+    if (!formData.patioJardinSeguro) {
+        errors.push('Debe especificar si cuenta con patio o jardín seguro');
+    }
+
+    if (!formData.numeroPersonas) {
+        errors.push('El número de personas es requerido');
+    } else if (formData.numeroPersonas <= 0) {
+        errors.push('El número de personas debe ser mayor que cero');
+    }
+
+    if (!formData.edadesPersonas) {
+        errors.push('Debe especificar las edades de las personas en el hogar');
+    }
+
+    if (!formData.otrosAnimales) {
+        errors.push('Debe especificar si tiene otros animales');
+    }
+
+    if (!formData.alergiasMascotas) {
+        errors.push('Debe especificar si tiene alergias a las mascotas');
+    }
+
+    if (!formData.haTenidoMascotas) {
+        errors.push('Debe especificar si ha tenido mascotas anteriormente');
+    }
+
+    if (!formData.detallesMascotasAnteriores) {
+        errors.push('Debe proporcionar detalles de las mascotas anteriores');
+    }
+
+    if (!formData.cuidadoEntrenamiento) {
+        errors.push('Debe especificar el cuidado y entrenamiento planeado para la mascota');
+    }
+
+    if (!formData.razonesAdopcion) {
+        errors.push('Debe especificar las razones para la adopción');
+    }
+
+    if (!formData.expectativasMascota) {
+        errors.push('Debe especificar las expectativas respecto a la nueva mascota');
+    }
+
     return errors;
 };
+
