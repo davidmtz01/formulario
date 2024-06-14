@@ -35,14 +35,37 @@ export const getFormulario = async (req, res) => {
 
 export const saveFormulario = async (req, res) => {
     try {
-        const formData = req.body;
-        const nuevoFormulario = new FormularioModel(formData);
+        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+
+        const nuevoFormulario = new FormularioModel({
+            nombreCompleto,
+            direccion,
+            numeroTelefono,
+            correoElectronico,
+            edad,
+            estadoCivil,
+            tipoVivienda,
+            propietarioInquilino,
+            tamanoVivienda,
+            patioJardinSeguro,
+            numeroPersonas,
+            edadesPersonas,
+            otrosAnimales,
+            alergiasMascotas,
+            haTenidoMascotas,
+            detallesMascotasAnteriores,
+            cuidadoEntrenamiento,
+            razonesAdopcion,
+            expectativasMascota
+        });
+
         await nuevoFormulario.save();
         return res.status(200).json({ status: true, message: 'Datos guardados exitosamente' });
     } catch (error) {
         return res.status(500).json({ status: false, errors: [error.message] });
     }
 };
+
 
 export const updateFormulario = async (req, res) => {
     try {
