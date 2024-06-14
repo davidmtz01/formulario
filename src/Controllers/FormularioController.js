@@ -36,7 +36,7 @@ export const getFormulario = async (req, res) => {
 export const saveFormulario = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombreCompleto, direccion, numeroTelefono, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
 
         const formulario = await FormularioModel.findByIdAndUpdate(id, {
             nombreCompleto,
@@ -73,7 +73,7 @@ export const saveFormulario = async (req, res) => {
 export const updateFormulario = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombreCompleto, direccion, numeroTelefono, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
+        const { nombreCompleto, direccion, numeroTelefono, correoElectronico, edad, estadoCivil, tipoVivienda, propietarioInquilino, tamanoVivienda, patioJardinSeguro, numeroPersonas, edadesPersonas, otrosAnimales, alergiasMascotas, haTenidoMascotas, detallesMascotasAnteriores, cuidadoEntrenamiento, razonesAdopcion, expectativasMascota } = req.body;
 
         const formulario = await FormularioModel.findByIdAndUpdate(id, {
             nombreCompleto,
